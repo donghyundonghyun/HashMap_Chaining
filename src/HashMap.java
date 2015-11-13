@@ -63,8 +63,19 @@ public class HashMap<K,V> {
     }
 
     private int getIndex(K key) {
-        int hash =Math.abs(key.hashCode()) % table.length;
+        //Digit Folding method
+        
+        int sum = 0;
 
+        String strKey = key.toString();
+
+        for(int i=0;i<strKey.length();i++){
+            Character ch = strKey.charAt(i);
+            sum += Character.getNumericValue(ch);
+        }
+
+
+        int hash = sum % table.length;
         return hash;
     }
 
@@ -72,11 +83,11 @@ public class HashMap<K,V> {
         HashMap hashMap = new HashMap();
 
         for(int i=1;i<130;i++){
-            hashMap.put("가나다라"+i,i);
+            hashMap.put(i,i);
         }
 
         for(int i=1;i<130;i++){
-            System.out.println(hashMap.get("가나다라"+i));
+            System.out.println(hashMap.get(i));
         }
         hashMap.put("Lorem ipsum dolor sit amet", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
 
